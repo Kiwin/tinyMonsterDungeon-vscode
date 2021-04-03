@@ -1,0 +1,10 @@
+{
+    "configurations": [
+        {
+            "preLaunchTask": "Delete all PDE files"
+        },
+        {
+            "preLaunchTask": "Copy Java to PDE",
+        }
+    ]   
+}

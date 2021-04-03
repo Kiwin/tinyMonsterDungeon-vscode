@@ -1,0 +1,60 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Delete all PDE files",
+      "command": "del",
+      "args": [
+        "*.pde"
+      ],
+      "type": "shell"
+    },
+    {
+      "label": "Copy Java to PDE",
+      "type": "shell",
+      "dependsOn":["Delete all PDE files"],
+      "command": "xcopy",
+      "args": [
+        "src\\java\\*.*",
+        "*.pde"
+      ],
+    },
+    {
+      "label": "Run Sketch",
+      "dependsOn":["Copy Java to PDE", "Delete all PDE files"],
+      "type": "shell",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "command": "${config:processing.path}",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "dedicated"
+      },
+      "args": [
+        "--force",
+        "--sketch=${workspaceRoot}",
+        "--output=${workspaceRoot}/out",
+        "--run"
+      ],
+      "windows": {
+        "type": "process",
+        "args": [
+          "--force",
+          {
+            "value": "--sketch=${workspaceRoot}",
+            "quoting": "strong"
+          },
+          {
+            "value": "--output=${workspaceRoot}\\out",
+            "quoting": "strong"
+          },
+          "--run"
+        ]
+      }
+    }
+  ]
+}
